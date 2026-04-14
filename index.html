@@ -3,626 +3,1494 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diagnóstico - Stefany</title>
+  <title>Diagnóstico Estratégico | Stefany Mello</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    /* ============================================================
+       RESET
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ============================================================
+       DESIGN SYSTEM — Luxury Dark
+    ============================================================ */
+    :root {
+      --black:       #080808;
+      --card:        #111111;
+      --card-2:      #161616;
+      --border:      #1e1e1e;
+      --border-2:    #2a2a2a;
+      --gold:        #C9A96E;
+      --gold-light:  #DEC08A;
+      --gold-dim:    rgba(201, 169, 110, 0.12);
+      --gold-dim2:   rgba(201, 169, 110, 0.06);
+      --white:       #F0EDE8;
+      --gray:        #777777;
+      --gray-2:      #AAAAAA;
+      --red:         #C85C5C;
+
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+      --ease-out: cubic-bezier(0, 0, 0.2, 1);
     }
+
+    html { font-size: 16px; scroll-behavior: smooth; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--sans);
       min-height: 100vh;
-      padding: 20px;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      background: white;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
+    /* ============================================================
+       PROGRESS BAR
+    ============================================================ */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--gold), var(--gold-light));
+      width: 0%;
+      transition: width 0.6s var(--ease);
+      z-index: 999;
     }
 
-    header {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
+    /* ============================================================
+       SCREENS
+    ============================================================ */
+    .screen {
+      display: none;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1.5rem;
+      animation: screenIn 0.65s var(--ease-out) forwards;
+    }
+    .screen.active { display: flex; }
+
+    @keyframes screenIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    header h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
+    /* result screen scrolls from top */
+    .screen.scroll-top {
+      justify-content: flex-start;
+      padding-top: 3rem;
     }
 
-    header p {
-      font-size: 1.1em;
+    /* ============================================================
+       BRAND / LOGO
+    ============================================================ */
+    .brand-mark {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.25rem;
+      margin-bottom: 2.5rem;
+    }
+    .brand-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 400;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--white);
       opacity: 0.9;
     }
-
-    .content {
-      padding: 40px;
+    .brand-title {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 400;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.8;
     }
 
-    .section {
-      margin-bottom: 40px;
+    /* ============================================================
+       TYPOGRAPHY
+    ============================================================ */
+    .headline {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 300;
+      line-height: 1.12;
+      text-align: center;
+      color: var(--white);
+      max-width: 620px;
+      margin-bottom: 1.25rem;
+    }
+    .headline em { font-style: italic; color: var(--gold); font-weight: 300; }
+    .headline strong { font-weight: 600; }
+
+    .h2 {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      font-weight: 300;
+      line-height: 1.2;
+      text-align: center;
+      color: var(--white);
+      max-width: 540px;
+      margin-bottom: 1rem;
+    }
+    .h2 em { font-style: italic; color: var(--gold); }
+
+    .subtext {
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--gray-2);
+      text-align: center;
+      line-height: 1.75;
+      max-width: 440px;
+      margin-bottom: 2.25rem;
+      letter-spacing: 0.01em;
     }
 
-    .section h2 {
-      color: #667eea;
-      font-size: 1.8em;
-      margin-bottom: 20px;
-      border-bottom: 3px solid #667eea;
-      padding-bottom: 10px;
+    .label {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
     }
 
-    .question-group {
-      background: #f8f9fa;
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      border-left: 4px solid #667eea;
+    .step-counter {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 1.75rem;
     }
 
-    .question {
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 15px;
-      font-size: 1.05em;
+    /* ============================================================
+       DIVIDER
+    ============================================================ */
+    .rule {
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+      margin: 0 auto 2rem;
     }
 
-    .options {
-      margin-left: 20px;
+    /* ============================================================
+       INPUTS
+    ============================================================ */
+    .field-group {
+      width: 100%;
+      max-width: 400px;
+      margin-bottom: 1.5rem;
     }
+    .field-group .label {
+      display: block;
+      margin-bottom: 0.65rem;
+      color: var(--gray);
+    }
+    .field {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border-2);
+      border-radius: 0;
+      padding: 0.95rem 1.2rem;
+      font-family: var(--sans);
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.3s var(--ease);
+      -webkit-appearance: none;
+      appearance: none;
+    }
+    .field::placeholder { color: var(--gray); font-weight: 300; }
+    .field:focus { border-color: var(--gold); }
 
-    .option {
-      padding: 10px 0;
-      color: #555;
+    /* ============================================================
+       BUTTONS
+    ============================================================ */
+    .btn {
       display: flex;
       align-items: center;
-    }
-
-    .option input[type="radio"],
-    .option input[type="checkbox"] {
-      margin-right: 10px;
-      width: 18px;
-      height: 18px;
+      justify-content: center;
+      gap: 0.65rem;
+      width: 100%;
+      max-width: 400px;
+      padding: 1rem 2rem;
+      background: var(--gold);
+      color: var(--black);
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 0;
       cursor: pointer;
+      transition: background 0.25s, opacity 0.25s;
+      text-decoration: none;
+      -webkit-appearance: none;
+    }
+    .btn:hover:not(:disabled) { background: var(--gold-light); }
+    .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border-2);
+      color: var(--gray-2);
+    }
+    .btn-outline:hover:not(:disabled) {
+      background: transparent;
+      border-color: var(--gold);
+      color: var(--gold);
     }
 
-    .option label {
-      cursor: pointer;
-      flex: 1;
-    }
-
-    .results {
-      background: linear-gradient(135deg, #e0f7fa 0%, #e1f5fe 100%);
-      padding: 30px;
-      border-radius: 10px;
-      margin-top: 30px;
-      border-left: 4px solid #00bcd4;
-    }
-
-    .results h3 {
-      color: #00695c;
-      margin-bottom: 15px;
-      font-size: 1.3em;
-    }
-
-    .result-item {
-      padding: 15px;
-      background: white;
-      margin: 10px 0;
-      border-radius: 8px;
-      border-left: 3px solid #4caf50;
-    }
-
-    .result-item.warning {
-      border-left-color: #ff9800;
-    }
-
-    .result-item.critical {
-      border-left-color: #f44336;
-    }
-
-    .button-group {
+    /* ============================================================
+       OPTIONS (quiz cards)
+    ============================================================ */
+    .options {
+      width: 100%;
+      max-width: 460px;
       display: flex;
-      gap: 10px;
-      margin-top: 20px;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 2rem;
+    }
+    .opt {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      background: var(--card);
+      border: 1px solid var(--border-2);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      text-align: left;
+      border-radius: 0;
+      width: 100%;
+    }
+    .opt:hover     { border-color: var(--gold); background: var(--gold-dim); }
+    .opt.selected  { border-color: var(--gold); background: var(--gold-dim); }
+
+    .opt-dot {
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--border-2);
+      border-radius: 50%;
+      flex-shrink: 0;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .opt.selected .opt-dot {
+      border-color: var(--gold);
+      background: var(--gold);
+    }
+    .opt-dot::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      background: var(--black);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .opt.selected .opt-dot::after { opacity: 1; }
+
+    .opt-text {
+      font-family: var(--sans);
+      font-size: 0.875rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.45;
+    }
+
+    /* ============================================================
+       LOADING SCREEN
+    ============================================================ */
+    .loading-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      text-align: center;
+    }
+    .spinner {
+      width: 56px;
+      height: 56px;
+      border: 1px solid var(--border-2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 1.1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-title {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.3;
+    }
+    .loading-sub {
+      font-family: var(--sans);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-top: -1.25rem;
+    }
+
+    /* ============================================================
+       RESULT PAGE
+    ============================================================ */
+    .result-wrap {
+      width: 100%;
+      max-width: 700px;
+      padding: 1rem 0 4rem;
+    }
+
+    .result-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .result-badge {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(201,169,110,0.25);
+      padding: 0.45rem 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .result-handle {
+      font-family: var(--sans);
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: var(--gray-2);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.05em;
+    }
+    .result-handle strong { color: var(--white); font-weight: 400; }
+
+    /* Score ring */
+    .score-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 2.5rem 0 3.5rem;
+    }
+    .ring {
+      position: relative;
+      width: 136px;
+      height: 136px;
+    }
+    .ring svg { transform: rotate(-90deg); }
+    .ring-track { fill: none; stroke: var(--border-2); stroke-width: 1.5; }
+    .ring-fill {
+      fill: none;
+      stroke: var(--gold);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-dasharray: 363;
+      stroke-dashoffset: 363;
+      transition: stroke-dashoffset 1.8s var(--ease-out);
+    }
+    .ring-inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .ring-num {
+      font-family: var(--serif);
+      font-size: 2.6rem;
+      font-weight: 300;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .ring-den {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+
+    /* Pillar card */
+    .pillar {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      margin-bottom: 1rem;
+    }
+    .pillar-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1.75rem;
       flex-wrap: wrap;
     }
-
-    button {
-      padding: 12px 30px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1em;
-      font-weight: 600;
-      transition: all 0.3s ease;
+    .pillar-id { color: var(--gold); margin-bottom: 0.3rem; }
+    .pillar-name {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--white);
+    }
+    .pillar-score-val {
+      font-family: var(--serif);
+      font-size: 1.8rem;
+      font-weight: 300;
+      color: var(--gold);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .pillar-score-val small {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      color: var(--gray);
+      font-weight: 300;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
+    .issues-list { margin-bottom: 1.5rem; }
+    .issue-row {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--border);
+      font-family: var(--sans);
+      font-size: 0.83rem;
+      font-weight: 300;
+      color: var(--gray-2);
+      line-height: 1.55;
+    }
+    .issue-row:last-child { border-bottom: none; }
+    .issue-x { color: var(--red); flex-shrink: 0; margin-top: 1px; }
+
+    .pillar-analysis {
+      border-left: 1px solid var(--gold);
+      padding: 1rem 1.2rem;
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--gray-2);
+      line-height: 1.75;
+      margin-bottom: 1rem;
+      background: var(--gold-dim2);
     }
 
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    .pillar-hint {
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.04em;
     }
 
-    .btn-secondary {
-      background: #e0e0e0;
-      color: #333;
-    }
-
-    .btn-secondary:hover {
-      background: #d0d0d0;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background: #e0e0e0;
-      border-radius: 4px;
-      margin: 20px 0;
-      overflow: hidden;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-
-    .info-box {
-      background: #e3f2fd;
-      border-left: 4px solid #2196f3;
-      padding: 15px;
-      border-radius: 5px;
-      margin: 20px 0;
-      color: #1565c0;
-    }
-
-    footer {
-      background: #f5f5f5;
-      padding: 20px;
+    /* Summary */
+    .summary-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2.25rem 2rem;
+      margin-bottom: 1rem;
       text-align: center;
-      color: #666;
-      font-size: 0.9em;
+    }
+    .summary-quote {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      font-style: italic;
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.55;
+      margin-bottom: 1.5rem;
+    }
+    .summary-body {
+      font-family: var(--sans);
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--gray-2);
+      line-height: 1.8;
     }
 
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 1.8em;
-      }
+    /* Problems recap */
+    .recap-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      margin-bottom: 1rem;
+    }
 
-      .content {
-        padding: 20px;
-      }
+    /* CTA block */
+    .cta-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 2.5rem 2rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .cta-block .headline {
+      font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+      margin-bottom: 0.75rem;
+    }
+    .urgency-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .urgency-tag {
+      font-family: var(--sans);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gray);
+    }
+    .urgency-sep { color: var(--border-2); }
 
-      .button-group {
-        flex-direction: column;
-      }
+    /* FAQ */
+    .faq-item {
+      padding: 1.35rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .faq-q {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .faq-a {
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 300;
+      color: var(--gray-2);
+      line-height: 1.75;
+    }
 
-      button {
-        width: 100%;
-      }
+    /* ============================================================
+       THANK YOU
+    ============================================================ */
+    .ty-wrap {
+      text-align: center;
+      max-width: 500px;
+    }
+    .ty-check {
+      width: 52px;
+      height: 52px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2.25rem;
+      color: var(--gold);
+      font-size: 1.1rem;
+    }
+    .ty-note {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      margin: 1.75rem 0;
+      font-family: var(--sans);
+      font-size: 0.83rem;
+      font-weight: 300;
+      color: var(--gray-2);
+      line-height: 1.75;
+      text-align: left;
+    }
+    .ty-note strong { color: var(--white); font-weight: 500; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 520px) {
+      .pillar { padding: 1.5rem 1.1rem; }
+      .pillar-top { flex-direction: column; }
+      .cta-block { padding: 2rem 1.25rem; }
+      .summary-card { padding: 1.75rem 1.25rem; }
+      .recap-card { padding: 1.5rem 1.1rem; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Diagnóstico de Saúde</h1>
-      <p>Avaliação Completa - Stefany</p>
-    </header>
 
-    <div class="content">
-      <div class="info-box">
-        <strong>Importante:</strong> Este diagnóstico é apenas informativo e não substitui a consulta com um profissional de saúde qualificado.
+<div id="progress-bar"></div>
+
+<!-- ============================================================
+     SCREEN: ENTRY
+============================================================ -->
+<div class="screen active" id="s-entry">
+  <div class="brand-mark">
+    <span class="brand-name">Stefany Mello</span>
+    <span class="brand-title">Estratégia &amp; Posicionamento Digital</span>
+  </div>
+
+  <p class="label" style="margin-bottom:1.5rem;">Diagnóstico Estratégico Gratuito</p>
+
+  <h1 class="headline">
+    Descubra o que está <em>travando</em> sua autoridade no digital
+  </h1>
+  <div class="rule"></div>
+  <p class="subtext">
+    Em menos de 4 minutos, nossa análise identifica os pontos críticos que impedem seu crescimento —
+    e o caminho exato para corrigí-los.
+  </p>
+
+  <div class="field-group">
+    <label class="label" style="display:block;margin-bottom:0.65rem;">Seu @ do Instagram</label>
+    <input id="inp-handle" class="field" type="text" placeholder="@seuperfil" autocomplete="off" spellcheck="false">
+  </div>
+
+  <button class="btn" onclick="startFlow()" style="max-width:400px;">
+    Iniciar Diagnóstico
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+      <path d="M1 6.5h11M7 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <p style="font-family:var(--sans);font-size:0.65rem;color:var(--gray);margin-top:1.5rem;letter-spacing:0.1em;text-transform:uppercase;">
+    100% gratuito &nbsp;·&nbsp; Sem compromisso &nbsp;·&nbsp; Resultado imediato
+  </p>
+</div>
+
+<!-- ============================================================
+     SCREEN: LOADING 1 (scanning)
+============================================================ -->
+<div class="screen" id="s-load1">
+  <div class="loading-wrap">
+    <div class="spinner"></div>
+    <div>
+      <p class="loading-title">Escaneando seu perfil</p>
+      <p class="loading-sub" id="load1-text">Coletando dados estratégicos...</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN: NAME
+============================================================ -->
+<div class="screen" id="s-name">
+  <div class="brand-mark"><span class="brand-name">Stefany Mello</span><span class="brand-title">Estratégia &amp; Posicionamento</span></div>
+  <p class="step-counter">Passo 1 de 3 — Identificação</p>
+  <h2 class="h2">Como prefere <em>ser chamado</em>?</h2>
+  <div class="rule"></div>
+  <p class="subtext">Confirme seu nome para personalizarmos cada detalhe do seu diagnóstico.</p>
+  <div class="field-group">
+    <label class="label" style="display:block;margin-bottom:0.65rem;">Primeiro nome</label>
+    <input id="inp-name" class="field" type="text" placeholder="Seu nome" autocomplete="given-name">
+  </div>
+  <button class="btn" onclick="goEmail()">
+    Confirmar
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5h11M7 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<!-- ============================================================
+     SCREEN: EMAIL
+============================================================ -->
+<div class="screen" id="s-email">
+  <div class="brand-mark"><span class="brand-name">Stefany Mello</span><span class="brand-title">Estratégia &amp; Posicionamento</span></div>
+  <p class="step-counter">Passo 2 de 3 — Contato</p>
+  <h2 class="h2">Para onde enviamos <em>seu diagnóstico</em>?</h2>
+  <div class="rule"></div>
+  <p class="subtext">Seu diagnóstico completo será enviado por e-mail ao término da análise.</p>
+  <div class="field-group">
+    <label class="label" style="display:block;margin-bottom:0.65rem;">E-mail</label>
+    <input id="inp-email" class="field" type="email" placeholder="seu@email.com" autocomplete="email">
+  </div>
+  <button class="btn" onclick="goWhats()">
+    Continuar
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5h11M7 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<!-- ============================================================
+     SCREEN: WHATSAPP
+============================================================ -->
+<div class="screen" id="s-whats">
+  <div class="brand-mark"><span class="brand-name">Stefany Mello</span><span class="brand-title">Estratégia &amp; Posicionamento</span></div>
+  <p class="step-counter">Passo 3 de 3 — Contato</p>
+  <h2 class="h2">Seu <em>WhatsApp</em> para contato</h2>
+  <div class="rule"></div>
+  <p class="subtext">Caso seu perfil seja selecionado, Stefany entrará em contato diretamente pelo WhatsApp para agendar sua sessão.</p>
+  <div class="field-group">
+    <label class="label" style="display:block;margin-bottom:0.65rem;">WhatsApp (Brasil)</label>
+    <input id="inp-whats" class="field" type="tel" placeholder="(11) 99999-9999" autocomplete="tel">
+  </div>
+  <button class="btn" onclick="goCat()">
+    Continuar
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5h11M7 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<!-- ============================================================
+     SCREEN: CATEGORY
+============================================================ -->
+<div class="screen" id="s-cat">
+  <div class="brand-mark"><span class="brand-name">Stefany Mello</span><span class="brand-title">Estratégia &amp; Posicionamento</span></div>
+  <h2 class="h2">Qual melhor descreve <em>sua atuação</em>?</h2>
+  <div class="rule"></div>
+
+  <div class="options" id="opts-cat">
+    <button class="opt" onclick="pickCat('mentor',this)"><span class="opt-dot"></span><span class="opt-text">Coach / Mentor</span></button>
+    <button class="opt" onclick="pickCat('consultor',this)"><span class="opt-dot"></span><span class="opt-text">Consultor / Especialista</span></button>
+    <button class="opt" onclick="pickCat('lider',this)"><span class="opt-dot"></span><span class="opt-text">Líder Empresarial</span></button>
+    <button class="opt" onclick="pickCat('criador',this)"><span class="opt-dot"></span><span class="opt-text">Criador de Conteúdo</span></button>
+    <button class="opt" onclick="pickCat('outro',this)"><span class="opt-dot"></span><span class="opt-text">Outro</span></button>
+  </div>
+
+  <button class="btn" id="btn-cat" disabled onclick="goLoad2()">
+    Continuar
+    <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5h11M7 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<!-- ============================================================
+     SCREEN: LOADING 2 (analysis start)
+============================================================ -->
+<div class="screen" id="s-load2">
+  <div class="loading-wrap">
+    <div class="spinner"></div>
+    <div>
+      <p class="loading-title">Iniciando análise estratégica</p>
+      <p class="loading-sub">Cruzando dados do seu perfil...</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     QUIZ SCREENS — injected by JS
+============================================================ -->
+<div id="quiz-mount"></div>
+
+<!-- ============================================================
+     SCREEN: LOADING FINAL
+============================================================ -->
+<div class="screen" id="s-loadfinal">
+  <div class="loading-wrap">
+    <div class="spinner"></div>
+    <div>
+      <p class="loading-title" id="loadfinal-txt">Compilando seu diagnóstico</p>
+      <p class="loading-sub" id="loadfinal-sub">Analisando os 3 pilares estratégicos...</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     SCREEN: RESULT
+============================================================ -->
+<div class="screen scroll-top" id="s-result">
+  <div class="result-wrap">
+
+    <div class="result-header">
+      <span class="result-badge">Diagnóstico Concluído</span>
+      <div class="result-handle">
+        <strong id="r-handle">—</strong>&ensp;·&ensp;<span id="r-cat">—</span>
       </div>
+      <h2 class="headline">
+        <span id="r-name">—</span>, encontramos
+        <em>falhas críticas</em> que estão limitando sua autoridade
+      </h2>
+      <p class="subtext" style="margin-top:0.5rem;">
+        Analisamos seu posicionamento e identificamos exatamente o que precisa ser corrigido.
+      </p>
 
-      <form id="diagnosticForm">
-        <div class="section">
-          <h2>1. Informações Pessoais</h2>
-          <div class="question-group">
-            <label class="question">Qual é a sua idade?</label>
-            <input type="number" name="age" min="1" max="120" placeholder="Digite sua idade" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
-          </div>
-
-          <div class="question-group">
-            <div class="question">Qual é o seu sexo?</div>
-            <div class="options">
-              <div class="option">
-                <input type="radio" name="sex" value="male" id="male">
-                <label for="male">Masculino</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="sex" value="female" id="female">
-                <label for="female">Feminino</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="sex" value="other" id="other">
-                <label for="other">Outro</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="question-group">
-            <label class="question">Qual é o seu peso (em kg)?</label>
-            <input type="number" name="weight" min="1" step="0.1" placeholder="Digite seu peso" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
-          </div>
-
-          <div class="question-group">
-            <label class="question">Qual é a sua altura (em cm)?</label>
-            <input type="number" name="height" min="1" step="0.1" placeholder="Digite sua altura" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
-          </div>
-        </div>
-
-        <div class="section">
-          <h2>2. Histórico de Doenças</h2>
-          <div class="question-group">
-            <div class="question">Você tem alguma das seguintes condições? (Selecione todas que se aplicam)</div>
-            <div class="options">
-              <div class="option">
-                <input type="checkbox" name="conditions" value="hypertension" id="hypertension">
-                <label for="hypertension">Hipertensão</label>
-              </div>
-              <div class="option">
-                <input type="checkbox" name="conditions" value="diabetes" id="diabetes">
-                <label for="diabetes">Diabetes</label>
-              </div>
-              <div class="option">
-                <input type="checkbox" name="conditions" value="heart" id="heart">
-                <label for="heart">Doença Cardíaca</label>
-              </div>
-              <div class="option">
-                <input type="checkbox" name="conditions" value="thyroid" id="thyroid">
-                <label for="thyroid">Problema de Tireoide</label>
-              </div>
-              <div class="option">
-                <input type="checkbox" name="conditions" value="depression" id="depression">
-                <label for="depression">Depressão/Ansiedade</label>
-              </div>
-              <div class="option">
-                <input type="checkbox" name="conditions" value="none" id="none">
-                <label for="none">Nenhuma das anteriores</label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <h2>3. Hábitos de Vida</h2>
-          <div class="question-group">
-            <div class="question">Com que frequência você pratica exercícios físicos?</div>
-            <div class="options">
-              <div class="option">
-                <input type="radio" name="exercise" value="never" id="never">
-                <label for="never">Nunca</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="exercise" value="rarely" id="rarely">
-                <label for="rarely">Raramente (1-2 vezes/mês)</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="exercise" value="sometimes" id="sometimes">
-                <label for="sometimes">Às vezes (1-2 vezes/semana)</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="exercise" value="often" id="often">
-                <label for="often">Frequentemente (3+ vezes/semana)</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="question-group">
-            <div class="question">Como é a qualidade do seu sono?</div>
-            <div class="options">
-              <div class="option">
-                <input type="radio" name="sleep" value="poor" id="poor">
-                <label for="poor">Ruim</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="sleep" value="fair" id="fair">
-                <label for="fair">Regular</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="sleep" value="good" id="good">
-                <label for="good">Boa</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="sleep" value="excellent" id="excellent">
-                <label for="excellent">Excelente</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="question-group">
-            <div class="question">Você consome álcool?</div>
-            <div class="options">
-              <div class="option">
-                <input type="radio" name="alcohol" value="never" id="alcohol-never">
-                <label for="alcohol-never">Nunca</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="alcohol" value="rarely" id="alcohol-rarely">
-                <label for="alcohol-rarely">Raramente</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="alcohol" value="regularly" id="alcohol-regularly">
-                <label for="alcohol-regularly">Regularmente</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="question-group">
-            <div class="question">Você fuma?</div>
-            <div class="options">
-              <div class="option">
-                <input type="radio" name="smoking" value="no" id="smoking-no">
-                <label for="smoking-no">Não</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="smoking" value="yes" id="smoking-yes">
-                <label for="smoking-yes">Sim</label>
-              </div>
-              <div class="option">
-                <input type="radio" name="smoking" value="former" id="smoking-former">
-                <label for="smoking-former">Fumava antes</label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="section">
-          <h2>4. Sintomas Atuais</h2>
-          <div class="question-group">
-            <div class="question">Você está experimentando algum dos seguintes sintomas? (Selecione todos que se aplicam)</div>
-            <div class="options">
-              <div class="option">
-                <input type="checkbox" name="symptoms" value="fatigue" id="fatigue">
-                <label for="fatigue">Fadiga/Cansaço</label>
-              </div>
-              <div class="option">
-                <input type="checkbox" name="symptoms" value="pain" id="pain">
-                <label for="pain">Dor ou Desconforto</label>
-              </div>
-              <div class="option">
-                <input type="checkbox" name="symptoms" value="headache" id="headache">
-                <label for="headache">Dores de Cabeça</label>
-              </div>
-              <div class="option">
-                <input type="checkbox" name="symptoms" value="digestion" id="digestion">
-                <label for="digestion">Problemas Digestivos</label>
-              </div>
-              <div class="option">
-                <input type="checkbox" name="symptoms" value="respiratory" id="respiratory">
-                <label for="respiratory">Problemas Respiratórios</label>
-              </div>
-              <div class="option">
-                <input type="checkbox" name="symptoms" value="mood" id="mood">
-                <label for="mood">Alterações de Humor</label>
-              </div>
-              <div class="option">
-                <input type="checkbox" name="symptoms" value="none-symptoms" id="none-symptoms">
-                <label for="none-symptoms">Nenhum dos anteriores</label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="button-group">
-          <button type="button" class="btn-primary" onclick="generateDiagnosis()">Gerar Diagnóstico</button>
-          <button type="reset" class="btn-secondary">Limpar Formulário</button>
-        </div>
-      </form>
-
-      <div id="resultsSection" style="display: none;">
-        <div class="results">
-          <h3>Resultado da Avaliação</h3>
-          <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-          </div>
-          <div id="resultsContent"></div>
-          <div class="info-box" style="background: #fff3e0; border-left-color: #ff9800; color: #e65100; margin-top: 20px;">
-            <strong>Aviso:</strong> Consulte um médico antes de tomar qualquer ação baseada neste diagnóstico.
+      <div class="score-wrap">
+        <div class="ring">
+          <svg width="136" height="136" viewBox="0 0 136 136">
+            <circle class="ring-track" cx="68" cy="68" r="58"/>
+            <circle class="ring-fill" id="ring-fill" cx="68" cy="68" r="58"/>
+          </svg>
+          <div class="ring-inner">
+            <div class="ring-num" id="ring-num">—</div>
+            <div class="ring-den">de 10</div>
           </div>
         </div>
       </div>
     </div>
 
-    <footer>
-      <p>&copy; 2024 Sistema de Diagnóstico Inteligente. Todos os direitos reservados.</p>
-      <p>Este serviço é apenas para fins informativos e educacionais.</p>
-    </footer>
+    <!-- Pillar cards injected by JS -->
+    <div id="pillar-mount"></div>
+
+    <!-- Summary -->
+    <div class="summary-card" id="summary-card">
+      <p class="summary-quote" id="sum-quote">"—"</p>
+      <p class="summary-body" id="sum-body">—</p>
+    </div>
+
+    <!-- Recap -->
+    <div class="recap-card">
+      <p class="label" style="margin-bottom:1.25rem;">O que identificamos</p>
+      <div id="recap-mount"></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-block">
+      <p class="label" style="margin-bottom:1rem;">Próximo passo</p>
+      <h3 class="headline" style="font-size:clamp(1.4rem,3.5vw,2rem);margin-bottom:0.75rem;">
+        Quer corrigir esses erros e <em>escalar sua autoridade</em>?
+      </h3>
+      <p class="subtext" style="margin-top:0.25rem;">
+        Agende uma sessão estratégica gratuita com Stefany e descubra o plano exato
+        para transformar sua presença digital em um canal real de aquisição de clientes.
+      </p>
+      <button class="btn" style="max-width:100%;margin:1.5rem auto 0;" onclick="goThanks()">
+        Quero minha sessão estratégica
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5h11M7 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <div class="urgency-row">
+        <span class="urgency-tag">Vagas limitadas</span>
+        <span class="urgency-sep">·</span>
+        <span class="urgency-tag">100% Gratuita</span>
+        <span class="urgency-sep">·</span>
+        <span class="urgency-tag">Sem compromisso</span>
+      </div>
+    </div>
+
+    <!-- FAQ -->
+    <div style="padding:2rem 0 1rem;">
+      <p class="label" style="text-align:center;margin-bottom:1.75rem;">Perguntas frequentes</p>
+      <div id="faq-mount"></div>
+    </div>
+
+    <p style="font-family:var(--sans);font-size:0.62rem;color:var(--gray);text-align:center;letter-spacing:0.12em;padding-top:1rem;">
+      © Stefany Mello · Axtor Labs Marketing
+    </p>
   </div>
+</div>
 
-  <script>
-    function generateDiagnosis() {
-      const formData = new FormData(document.getElementById('diagnosticForm'));
-      const data = Object.fromEntries(formData);
-      
-      // Validate required fields
-      if (!data.age || !data.sex || !data.weight || !data.height) {
-        alert('Por favor, preencha todas as informações pessoais.');
-        return;
-      }
+<!-- ============================================================
+     SCREEN: THANK YOU
+============================================================ -->
+<div class="screen" id="s-thanks">
+  <div class="ty-wrap">
+    <div class="ty-check">✓</div>
+    <div class="brand-mark" style="margin-bottom:1.5rem;">
+      <span class="brand-name">Stefany Mello</span>
+      <span class="brand-title">Solicitação Recebida</span>
+    </div>
+    <h2 class="h2">Sua sessão estratégica <em>está sendo preparada</em></h2>
+    <div class="rule"></div>
+    <p class="subtext">
+      Em breve Stefany entrará em contato pelo WhatsApp para confirmar o melhor horário.
+      Verifique também seu e-mail.
+    </p>
+    <div class="ty-note">
+      <strong>Enquanto aguarda:</strong> siga <strong>@eustefanymello</strong> no Instagram
+      e ative as notificações para não perder os próximos conteúdos sobre posicionamento
+      e estratégia digital — eles serão parte do seu processo.
+    </div>
+    <a href="https://www.instagram.com/eustefanymello/" target="_blank" rel="noopener" class="btn" style="max-width:400px;">
+      Seguir @eustefanymello
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5h11M7 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</div>
 
-      if (!data.exercise || !data.sleep || !data.alcohol || !data.smoking) {
-        alert('Por favor, responda todas as questões sobre hábitos de vida.');
-        return;
-      }
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+<script>
+/* ============================================================
+   ██████  CONFIG — edite antes de publicar
+============================================================ */
+const CFG = {
+  /* Supabase — projeto axtor_comercial 1 (qvbnzaxsmxrtjrrnjrst) */
+  supabaseUrl: 'https://qvbnzaxsmxrtjrrnjrst.supabase.co',
+  supabaseKey: 'sb_publishable_AfyJpN8kF_-hbuMwS_eeKg_Pb0m1Yn4',
 
-      let results = [];
-      let riskScore = 0;
+  /* Tabela criada no Supabase */
+  table: 'leads_diagnostico_stefany',
 
-      // Calculate BMI
-      const height = parseFloat(data.height) / 100;
-      const weight = parseFloat(data.weight);
-      const bmi = (weight / (height * height)).toFixed(1);
+  /* SEU WhatsApp (Stefany) — formato internacional sem + nem espaços
+     Ex: '5511999999999'  →  55 + DDD + número
+     Quando o lead clicar em "Quero minha sessão", ele abre um chat direto com você. */
+  whatsapp: '',
 
-      // BMI Assessment
-      if (bmi < 18.5) {
-        results.push({
-          severity: 'warning',
-          title: 'IMC Baixo',
-          content: `Seu IMC é ${bmi} (Baixo). Considere aumentar sua ingestão calórica com alimentos saudáveis.`
-        });
-        riskScore += 2;
-      } else if (bmi >= 18.5 && bmi < 25) {
-        results.push({
-          severity: 'success',
-          title: 'IMC Normal',
-          content: `Seu IMC é ${bmi} (Normal). Mantenha seus hábitos saudáveis.`
-        });
-      } else if (bmi >= 25 && bmi < 30) {
-        results.push({
-          severity: 'warning',
-          title: 'IMC Elevado',
-          content: `Seu IMC é ${bmi} (Sobrepeso). Considere aumentar a atividade física e revisar sua alimentação.`
-        });
-        riskScore += 3;
-      } else {
-        results.push({
-          severity: 'critical',
-          title: 'IMC Muito Elevado',
-          content: `Seu IMC é ${bmi} (Obeso). Consulte um médico ou nutricionista para orientação.`
-        });
-        riskScore += 5;
-      }
+  /* Instagram */
+  instagram: 'https://www.instagram.com/eustefanymello/',
+};
 
-      // Exercise Assessment
-      if (data.exercise === 'never' || data.exercise === 'rarely') {
-        results.push({
-          severity: 'critical',
-          title: 'Atividade Física Insuficiente',
-          content: 'Você está praticando pouco exercício. Tente incluir pelo menos 150 minutos de atividade moderada por semana.'
-        });
-        riskScore += 4;
-      } else if (data.exercise === 'sometimes') {
-        results.push({
-          severity: 'warning',
-          title: 'Atividade Física Regular',
-          content: 'Você está na direção certa. Tente aumentar para 3+ vezes por semana.'
-        });
-        riskScore += 1;
-      }
+/*
+  SQL para criar a tabela no Supabase:
+  ─────────────────────────────────────
+  create table leads_diagnostico_stefany (
+    id          bigserial primary key,
+    created_at  timestamptz default now(),
+    handle      text,
+    name        text,
+    email       text,
+    whatsapp    text,
+    category    text,
+    answers     jsonb,
+    score       numeric(4,2),
+    pillar1     numeric(4,2),
+    pillar2     numeric(4,2),
+    pillar3     numeric(4,2),
+    qualification text
+  );
+  alter table leads_diagnostico_stefany enable row level security;
+  create policy "insert only" on leads_diagnostico_stefany for insert with check (true);
+*/
 
-      // Sleep Assessment
-      if (data.sleep === 'poor' || data.sleep === 'fair') {
-        results.push({
-          severity: 'critical',
-          title: 'Qualidade do Sono Comprometida',
-          content: 'Sua qualidade de sono é baixa. Isso pode afetar sua saúde geral. Considere estabelecer uma rotina de sono regular.'
-        });
-        riskScore += 3;
-      } else if (data.sleep === 'good') {
-        results.push({
-          severity: 'warning',
-          title: 'Sono Adequado',
-          content: 'Sua qualidade de sono é boa. Continue mantendo uma boa higiene do sono.'
-        });
-      }
+/* ============================================================
+   STATE
+============================================================ */
+const S = {
+  handle: '', name: '', email: '', whatsapp: '', cat: '',
+  answers: {}, pScores: [0, 0, 0], score: 0, qual: '',
+};
 
-      // Smoking Assessment
-      if (data.smoking === 'yes') {
-        results.push({
-          severity: 'critical',
-          title: 'Fumo - Risco Grave',
-          content: 'Fumar é prejudicial à sua saúde. Considere procurar ajuda profissional para parar de fumar.'
-        });
-        riskScore += 5;
-      } else if (data.smoking === 'former') {
-        results.push({
-          severity: 'warning',
-          title: 'Ex-fumante',
-          content: 'Excelente! Você parou de fumar. Continue mantendo essa decisão importante.'
-        });
-        riskScore += 1;
-      }
+/* ============================================================
+   QUIZ DATA
+============================================================ */
+const QS = [
+  {
+    id: 'q1',
+    txt: 'Há quanto tempo está construindo sua presença no digital?',
+    opts: [
+      { v: 'a', l: 'Menos de 6 meses',    sc: [1,1,0] },
+      { v: 'b', l: '6 meses a 1 ano',     sc: [1,1,1] },
+      { v: 'c', l: '1 a 3 anos',          sc: [2,2,1] },
+      { v: 'd', l: 'Mais de 3 anos',      sc: [2,2,2] },
+    ]
+  },
+  {
+    id: 'q2',
+    txt: 'Qual é a sua maior dificuldade no digital hoje?',
+    opts: [
+      { v: 'a', l: 'Não sei como me posicionar com clareza',          sc: [3,1,1] },
+      { v: 'b', l: 'Meu conteúdo não gera engajamento real',          sc: [1,3,1] },
+      { v: 'c', l: 'Não consigo converter seguidores em clientes',    sc: [1,1,3] },
+      { v: 'd', l: 'Falta consistência e estratégia definida',        sc: [2,2,1] },
+      { v: 'e', l: 'Tudo parece desconectado — sem direção clara',   sc: [2,2,2] },
+    ]
+  },
+  {
+    id: 'q3',
+    txt: 'Como está seu faturamento proveniente do digital hoje?',
+    opts: [
+      { v: 'a', l: 'Ainda não faturei pelo digital',           sc: [1,1,3] },
+      { v: 'b', l: 'Até R$5 mil por mês',                     sc: [1,1,2] },
+      { v: 'c', l: 'Entre R$5 mil e R$20 mil por mês',        sc: [2,1,2] },
+      { v: 'd', l: 'Entre R$20 mil e R$50 mil por mês',       sc: [2,2,1] },
+      { v: 'e', l: 'Acima de R$50 mil por mês',               sc: [2,2,1] },
+    ]
+  },
+  {
+    id: 'q4',
+    txt: 'Com que frequência você publica conteúdo?',
+    opts: [
+      { v: 'a', l: 'Raramente ou nunca',           sc: [1,3,2] },
+      { v: 'b', l: '1 a 2 vezes por semana',       sc: [1,2,1] },
+      { v: 'c', l: '3 a 5 vezes por semana',       sc: [2,1,1] },
+      { v: 'd', l: 'Todos os dias',                sc: [2,1,2] },
+      { v: 'e', l: 'Mais de uma vez por dia',      sc: [2,2,2] },
+    ]
+  },
+  {
+    id: 'q5',
+    txt: 'O que mais falta no seu conteúdo hoje?',
+    opts: [
+      { v: 'a', l: 'Identidade visual e posicionamento consistente', sc: [3,2,1] },
+      { v: 'b', l: 'Estratégia de pauta e planejamento',             sc: [2,3,1] },
+      { v: 'c', l: 'Copywriting que converte e gera ação',           sc: [1,2,3] },
+      { v: 'd', l: 'Constância e disciplina de publicação',          sc: [1,3,1] },
+      { v: 'e', l: 'Tudo isso — preciso de uma solução completa',   sc: [2,2,2] },
+    ]
+  },
+  {
+    id: 'q6',
+    txt: 'Você investe em tráfego pago para seu perfil?',
+    opts: [
+      { v: 'a', l: 'Não invisto',                           sc: [1,1,2] },
+      { v: 'b', l: 'Menos de R$1 mil por mês',             sc: [2,1,2] },
+      { v: 'c', l: 'Entre R$1 mil e R$5 mil por mês',      sc: [2,2,1] },
+      { v: 'd', l: 'Acima de R$5 mil por mês',             sc: [2,2,1] },
+    ]
+  },
+  {
+    id: 'q7',
+    txt: 'O que você mais precisa neste momento?',
+    opts: [
+      { v: 'gestao',      l: 'Gestão completa das minhas redes sociais',           sc: [2,2,2], q: 'gestao' },
+      { v: 'consultoria', l: 'Consultoria para refinar meu posicionamento',        sc: [2,2,2], q: 'consultoria' },
+      { v: 'ambos',       l: 'Os dois — preciso de uma solução completa',         sc: [2,2,2], q: 'muito_qualificado' },
+    ]
+  },
+  {
+    id: 'intent',
+    txt: 'Você está pronto para investir em sua presença digital de forma profissional?',
+    opts: [
+      { v: 'sim',    l: 'Sim — estou pronto para escalar minha autoridade', q: 'muito_qualificado' },
+      { v: 'talvez', l: 'Depende da proposta e do investimento',            q: 'qualificado' },
+      { v: 'nao',    l: 'Ainda não é o momento certo',                     q: 'nao_qualificado' },
+    ]
+  },
+];
 
-      // Alcohol Assessment
-      if (data.alcohol === 'regularly') {
-        results.push({
-          severity: 'warning',
-          title: 'Consumo Regular de Álcool',
-          content: 'Você consome álcool regularmente. Considere reduzir a ingestão para níveis recomendados.'
-        });
-        riskScore += 2;
-      }
+const FAQS = [
+  {
+    q: 'A sessão estratégica é realmente gratuita?',
+    a: 'Sim, 100% gratuita. É a forma que trabalhamos: entregamos valor antes de qualquer conversa comercial. Você receberá um diagnóstico real do seu posicionamento — sem enrolação e sem pressão.',
+  },
+  {
+    q: 'Quanto tempo dura a sessão?',
+    a: 'Em média 30 a 45 minutos — tempo suficiente para sair com clareza total sobre o que precisa ajustar e qual é o próximo passo estratégico para seu perfil.',
+  },
+  {
+    q: 'Como a sessão é realizada?',
+    a: 'Online, pela plataforma Google Meet. Você receberá o link com antecedência pelo WhatsApp informado.',
+  },
+  {
+    q: 'Serei obrigado a contratar algo?',
+    a: 'Não. A sessão tem valor por si mesma — você vai sair com insights reais e acionáveis. Se houver fit para trabalharmos juntos, apresentamos as possibilidades. A decisão é sempre sua.',
+  },
+];
 
-      // Conditions Assessment
-      const conditions = Array.isArray(data.conditions) ? data.conditions : (data.conditions ? [data.conditions] : []);
-      if (conditions.length > 0 && !conditions.includes('none')) {
-        results.push({
-          severity: 'critical',
-          title: 'Condições de Saúde Pré-existentes',
-          content: `Você reportou ter condições pré-existentes. É importante monitorá-las regularmente com seu médico.`
-        });
-        riskScore += conditions.length * 2;
-      }
+/* ============================================================
+   PROGRESS
+============================================================ */
+const setProgress = p => document.getElementById('progress-bar').style.width = p + '%';
 
-      // Symptoms Assessment
-      const symptoms = Array.isArray(data.symptoms) ? data.symptoms : (data.symptoms ? [data.symptoms] : []);
-      if (symptoms.length > 0 && !symptoms.includes('none-symptoms')) {
-        results.push({
-          severity: 'warning',
-          title: 'Sintomas Reportados',
-          content: `Você está experimentando ${symptoms.length} sintoma(s). Se persistirem, consulte um profissional de saúde.`
-        });
-        riskScore += symptoms.length;
-      }
+/* ============================================================
+   SCREEN NAV
+============================================================ */
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => {
+    s.classList.remove('active');
+    s.style.display = 'none';
+  });
+  const t = document.getElementById(id);
+  if (!t) return;
+  t.style.display = 'flex';
+  t.offsetHeight; // reflow for animation
+  t.classList.add('active');
+  window.scrollTo({ top: 0 });
+}
 
-      // Overall Risk Assessment
-      let overallRisk = '';
-      let riskColor = '';
-      if (riskScore <= 5) {
-        overallRisk = 'Baixo';
-        riskColor = 'success';
-      } else if (riskScore <= 12) {
-        overallRisk = 'Moderado';
-        riskColor = 'warning';
-      } else {
-        overallRisk = 'Elevado';
-        riskColor = 'critical';
-      }
+/* ============================================================
+   FLOW
+============================================================ */
+function startFlow() {
+  const h = document.getElementById('inp-handle').value.trim().replace(/^@/, '');
+  if (!h) { document.getElementById('inp-handle').focus(); return; }
+  S.handle = h;
+  show('s-load1');
+  setProgress(8);
 
-      let progressValue = (riskScore / 20) * 100;
-      if (progressValue > 100) progressValue = 100;
+  const txts = [
+    'Coletando dados estratégicos...',
+    'Identificando seu perfil...',
+    'Preparando análise personalizada...',
+  ];
+  let ti = 0;
+  const el = document.getElementById('load1-text');
+  const iv = setInterval(() => { el.textContent = txts[++ti % txts.length]; }, 1200);
 
-      // Display results
-      const resultsContent = document.getElementById('resultsContent');
-      let html = `
-        <div class="result-item ${riskColor}">
-          <strong>Nível de Risco Geral: ${overallRisk}</strong>
-          <p>Pontuação de Risco: ${riskScore}/20</p>
+  setTimeout(() => {
+    clearInterval(iv);
+    // Pre-fill name from handle
+    const guess = h.replace(/[^a-zA-ZÀ-ÿ]/g, '');
+    document.getElementById('inp-name').value = guess
+      ? guess.charAt(0).toUpperCase() + guess.slice(1).toLowerCase().slice(0, 14)
+      : '';
+    setProgress(15);
+    show('s-name');
+  }, 3200);
+}
+
+function goEmail() {
+  const v = document.getElementById('inp-name').value.trim();
+  if (!v) { document.getElementById('inp-name').focus(); return; }
+  S.name = v;
+  setProgress(25);
+  show('s-email');
+}
+
+function goWhats() {
+  const v = document.getElementById('inp-email').value.trim();
+  if (!v || !v.includes('@')) { document.getElementById('inp-email').focus(); return; }
+  S.email = v;
+  setProgress(35);
+  show('s-whats');
+}
+
+function goCat() {
+  const v = document.getElementById('inp-whats').value.trim();
+  if (!v) { document.getElementById('inp-whats').focus(); return; }
+  S.whatsapp = v;
+  setProgress(45);
+  show('s-cat');
+}
+
+function pickCat(val, el) {
+  S.cat = val;
+  document.querySelectorAll('#opts-cat .opt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('btn-cat').disabled = false;
+}
+
+function goLoad2() {
+  if (!S.cat) return;
+  setProgress(52);
+  show('s-load2');
+  buildQuiz();
+  setTimeout(() => { setProgress(58); showQ(0); }, 1800);
+}
+
+/* ============================================================
+   QUIZ ENGINE
+============================================================ */
+let qStep = 0;
+
+function buildQuiz() {
+  const mount = document.getElementById('quiz-mount');
+  mount.innerHTML = '';
+  QS.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'screen';
+    div.id = `sq-${i}`;
+    div.style.display = 'none';
+    div.innerHTML = `
+      <div class="brand-mark">
+        <span class="brand-name">Stefany Mello</span>
+        <span class="brand-title">Análise em andamento</span>
+      </div>
+      <p class="step-counter">Pergunta ${i + 1} de ${QS.length}</p>
+      <h2 class="h2">${q.txt}</h2>
+      <div class="rule"></div>
+      <div class="options">
+        ${q.opts.map((o, oi) => `
+          <button class="opt" onclick="pickQ(${i},${oi},this)">
+            <span class="opt-dot"></span>
+            <span class="opt-text">${o.l}</span>
+          </button>
+        `).join('')}
+      </div>
+    `;
+    mount.appendChild(div);
+  });
+}
+
+function showQ(i) {
+  qStep = i;
+  const pct = 58 + Math.round((i / QS.length) * 30);
+  setProgress(pct);
+  show(`sq-${i}`);
+}
+
+function pickQ(qi, oi, el) {
+  const q = QS[qi];
+  const o = q.opts[oi];
+  S.answers[q.id] = o.v;
+  if (o.q) S.qual = o.q;
+  if (o.sc) S.pScores = S.pScores.map((s, j) => s + (o.sc[j] || 0));
+
+  el.closest('.options').querySelectorAll('.opt').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+  setTimeout(() => {
+    if (qStep < QS.length - 1) showQ(qStep + 1);
+    else finishQuiz();
+  }, 420);
+}
+
+/* ============================================================
+   RESULT ENGINE
+============================================================ */
+function finishQuiz() {
+  setProgress(90);
+  show('s-loadfinal');
+
+  const lines = [
+    ['Compilando seu diagnóstico', 'Analisando os 3 pilares estratégicos...'],
+    ['Cruzando padrões de posicionamento', 'Identificando pontos críticos...'],
+    ['Preparando recomendações', 'Personalizando para o seu perfil...'],
+  ];
+  let ti = 0;
+  const tEl = document.getElementById('loadfinal-txt');
+  const sEl = document.getElementById('loadfinal-sub');
+  const iv = setInterval(() => {
+    ti = (ti + 1) % lines.length;
+    tEl.textContent = lines[ti][0];
+    sEl.textContent = lines[ti][1];
+  }, 1400);
+
+  setTimeout(() => {
+    clearInterval(iv);
+    buildResult();
+    setProgress(100);
+    show('s-result');
+    animateRing();
+    saveLead();
+  }, 4200);
+}
+
+function norm(raw) {
+  /* higher raw = more problems → lower display score */
+  const mn = 3, mx = 14;
+  const c = Math.max(mn, Math.min(mx, raw));
+  return Math.round((10 - ((c - mn) / (mx - mn)) * 6.5) * 10) / 10;
+}
+
+function buildResult() {
+  const p1 = norm(S.pScores[0]);
+  const p2 = norm(S.pScores[1]);
+  const p3 = norm(S.pScores[2]);
+  const overall = Math.round(((p1 + p2 + p3) / 3) * 10) / 10;
+  S.score = overall;
+
+  const catLabel = {
+    mentor:'Coach / Mentor', consultor:'Consultor / Especialista',
+    lider:'Líder Empresarial', criador:'Criador de Conteúdo', outro:'Especialista Digital',
+  }[S.cat] || 'Especialista';
+
+  /* Header */
+  document.getElementById('r-handle').textContent = '@' + S.handle;
+  document.getElementById('r-cat').textContent = catLabel;
+  document.getElementById('r-name').textContent = S.name;
+  document.getElementById('ring-num').textContent = overall.toFixed(1);
+
+  /* Pilars */
+  const pillars = [
+    {
+      id: 'Pilar 01', icon: '◈',
+      name: 'Posicionamento Estratégico',
+      score: p1,
+      issues: pillarIssues(1),
+      analysis: pillarAnalysis(1),
+      hint: 'A solução para um posicionamento de autoridade real existe — descubra na sessão estratégica.',
+    },
+    {
+      id: 'Pilar 02', icon: '◉',
+      name: 'Arquitetura de Conteúdo',
+      score: p2,
+      issues: pillarIssues(2),
+      analysis: pillarAnalysis(2),
+      hint: 'Conteúdo notável segue uma estrutura precisa — revelamos na sessão estratégica.',
+    },
+    {
+      id: 'Pilar 03', icon: '◎',
+      name: 'Conversão & Autoridade',
+      score: p3,
+      issues: pillarIssues(3),
+      analysis: pillarAnalysis(3),
+      hint: 'Transformar audiência em clientes exige uma mecânica específica — mostramos o caminho.',
+    },
+  ];
+
+  const pm = document.getElementById('pillar-mount');
+  pm.innerHTML = '';
+  pillars.forEach(p => {
+    const d = document.createElement('div');
+    d.className = 'pillar';
+    d.innerHTML = `
+      <div class="pillar-top">
+        <div>
+          <p class="label pillar-id">${p.icon} ${p.id}</p>
+          <p class="pillar-name">${p.name}</p>
         </div>
-      `;
+        <div class="pillar-score-val">${p.score.toFixed(1)}<small>/10</small></div>
+      </div>
+      <p class="label" style="margin-bottom:0.75rem;">O que identificamos</p>
+      <div class="issues-list">
+        ${p.issues.map(i => `
+          <div class="issue-row"><span class="issue-x">✕</span><span>${i}</span></div>
+        `).join('')}
+      </div>
+      <div class="pillar-analysis">${p.analysis}</div>
+      <p class="pillar-hint">→ ${p.hint}</p>
+    `;
+    pm.appendChild(d);
+  });
 
-      results.forEach(result => {
-        html += `
-          <div class="result-item ${result.severity === 'critical' ? 'critical' : result.severity === 'warning' ? 'warning' : ''}">
-            <strong>${result.title}</strong>
-            <p>${result.content}</p>
-          </div>
-        `;
-      });
+  /* Summary */
+  document.getElementById('sum-quote').textContent = `"${getQuote()}"`;
+  document.getElementById('sum-body').textContent = getSummary(overall, catLabel);
 
-      document.getElementById('progressFill').style.width = progressValue + '%';
-      resultsContent.innerHTML = html;
-      document.getElementById('resultsSection').style.display = 'block';
-      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  </script>
+  /* Recap */
+  const rm = document.getElementById('recap-mount');
+  rm.innerHTML = pillars.map(p => `
+    <div style="display:flex;gap:0.75rem;padding:0.7rem 0;border-bottom:1px solid var(--border);">
+      <span style="color:var(--red);flex-shrink:0;">✕</span>
+      <span style="font-family:var(--sans);font-size:0.82rem;font-weight:300;color:var(--gray-2);line-height:1.55;">
+        <strong style="color:var(--white);font-weight:500;">${p.name}:</strong> ${p.issues[0]}
+      </span>
+    </div>
+  `).join('') + '<div style="height:0.25rem;"></div>';
+
+  /* FAQ */
+  document.getElementById('faq-mount').innerHTML = FAQS.map(f => `
+    <div class="faq-item">
+      <p class="faq-q">${f.q}</p>
+      <p class="faq-a">${f.a}</p>
+    </div>
+  `).join('');
+}
+
+/* ── Content generators ── */
+function pillarIssues(n) {
+  const q2 = S.answers.q2, q4 = S.answers.q4, q5 = S.answers.q5, q3 = S.answers.q3;
+
+  if (n === 1) return [
+    (q2==='a'||q2==='e')
+      ? 'Posicionamento difuso — o perfil não comunica com precisão quem você é e para quem fala'
+      : 'Identidade de marca frágil — sem diferenciação clara em relação a outros especialistas do nicho',
+    (q5==='a'||q5==='e')
+      ? 'Ausência de consistência visual e narrativa que reforce autoridade percebida'
+      : 'Bio estratégica e headline de autoridade inexistentes — visitante não converte em seguidor',
+    'Mensagem central desalinhada ao avatar ideal — gerando audiência genérica em vez de clientes qualificados',
+  ];
+
+  if (n === 2) return [
+    (q4==='a'||q4==='b')
+      ? 'Frequência insuficiente de publicação — algoritmo penaliza perfis inconsistentes'
+      : 'Volume de conteúdo sem arquitetura de valor — postagem por obrigação, não por intenção estratégica',
+    (q5==='b'||q2==='b')
+      ? 'Ausência de pauta estruturada — sem mix entre topo, meio e fundo de funil'
+      : 'Falta de storytelling estratégico — conteúdo informa mas não gera conexão emocional nem ação',
+    'Sem pilares de conteúdo definidos — cada post parece isolado, sem construir narrativa de autoridade contínua',
+  ];
+
+  if (n === 3) return [
+    (q3==='a'||q3==='b')
+      ? 'Perfil não estruturado para converter audiência em leads qualificados'
+      : 'Funil de conversão incompleto — há tráfego mas a jornada do cliente não está mapeada',
+    (q2==='c'||q5==='c')
+      ? 'CTAs fracos ou ausentes — o conteúdo não direciona para uma ação específica e mensurável'
+      : 'Oferta não está visível no perfil — visitante não sabe o que você vende ou como contratar',
+    'Sem mecanismo de captura de leads — seguidores chegam e saem sem entrar em nenhum funil estratégico',
+  ];
+  return [];
+}
+
+function pillarAnalysis(n) {
+  const q2 = S.answers.q2, q4 = S.answers.q4;
+  const nm = S.name;
+
+  if (n === 1) {
+    if (q2 === 'a') return `${nm}, o posicionamento é a fundação de tudo. Sem clareza sobre quem você é, para quem fala e qual problema único resolve, o algoritmo não sabe para quem distribuir seu conteúdo — e seu avatar ideal passa pelo seu perfil sem reconhecer que você é a solução que procura. Isso cria um ciclo de invisibilidade silenciosa.`;
+    return `${nm}, a maioria dos especialistas confunde presença com posicionamento. Ter um perfil ativo não é o mesmo que ter autoridade percebida. Sem identidade estratégica clara — bio, headline, estética e narrativa alinhadas ao mesmo avatar — você compete com todos e não é escolhido por ninguém.`;
+  }
+  if (n === 2) {
+    if (q4 === 'a' || q4 === 'b') return `Conteúdo esporádico sinaliza ao algoritmo que o perfil não merece distribuição prioritária. Mas a frequência sozinha não resolve — é preciso uma arquitetura de conteúdo que combine gatilhos de atenção, construção de autoridade e convites à ação. Sem essa estrutura, mais postagens apenas multiplicam o problema.`;
+    return `Produzir muito sem estratégia é mais prejudicial do que produzir pouco com intenção. Cada post sem objetivo claro treina o algoritmo a não distribuir — e o público a não engajar. Conteúdo notável não é sobre quantidade. É sobre arquitetura de impacto deliberada.`;
+  }
+  if (n === 3) return `${nm}, autoridade sem conversão é vaidade mensurável. O objetivo final do digital é transformar atenção em resultado — seja em leads, clientes ou receita recorrente. Isso exige um caminho claro: do primeiro contato com seu perfil até a decisão de compra. Sem essa estrutura mapeada, cada seguidor conquistado representa uma oportunidade desperdiçada.`;
+  return '';
+}
+
+function getQuote() {
+  const q2 = S.answers.q2;
+  const m = {
+    a: 'Quem não tem posicionamento claro não tem audiência certa — tem apenas números.',
+    b: 'Conteúdo sem estratégia é trabalho sem retorno. A consistência que não converte não serve ao negócio.',
+    c: 'Seguidores não pagam boletos. Somente um funil estratégico transforma atenção em receita.',
+    d: 'No digital, clareza é competência. Quem não tem estratégia não cresce — tem sorte.',
+    e: 'O digital não é sobre estar presente. É sobre estar posicionado com precisão cirúrgica.',
+  };
+  return m[q2] || 'A diferença entre autoridade e invisibilidade é sempre uma questão de estratégia.';
+}
+
+function getSummary(score, catLabel) {
+  return `${S.name}, você tem o conhecimento e a experiência que seu mercado precisa. O que está faltando é a estrutura estratégica que transforma esse conhecimento em autoridade percebida — e autoridade em resultado financeiro real. Seu diagnóstico indica ${score}/10 como ponto de partida, o que significa que há espaço significativo para crescimento. A questão não é se você vai crescer — é quando, e com que velocidade.`;
+}
+
+/* ── Score ring animation ── */
+function animateRing() {
+  const el = document.getElementById('ring-fill');
+  if (!el) return;
+  const circ = 2 * Math.PI * 58; // r=58
+  const offset = circ - (S.score / 10) * circ;
+  el.style.strokeDasharray = circ;
+  el.style.strokeDashoffset = circ;
+  setTimeout(() => { el.style.strokeDashoffset = offset; }, 350);
+}
+
+/* ============================================================
+   THANK YOU + REDIRECT
+============================================================ */
+function goThanks() {
+  show('s-thanks');
+  if (CFG.whatsapp) {
+    const msg = encodeURIComponent(`Olá Stefany! Acabei de fazer o Diagnóstico Estratégico e gostaria de agendar minha sessão. Meu perfil é @${S.handle}.`);
+    setTimeout(() => window.open(`https://wa.me/${CFG.whatsapp}?text=${msg}`, '_blank'), 900);
+  }
+}
+
+/* ============================================================
+   LEAD CAPTURE — Supabase
+============================================================ */
+async function saveLead() {
+  if (!CFG.supabaseUrl || !CFG.supabaseKey) return;
+  try {
+    await fetch(`${CFG.supabaseUrl}/rest/v1/${CFG.table}`, {
+      method: 'POST',
+      headers: {
+        apikey: CFG.supabaseKey,
+        Authorization: `Bearer ${CFG.supabaseKey}`,
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({
+        handle:        S.handle,
+        name:          S.name,
+        email:         S.email,
+        whatsapp:      S.whatsapp,
+        category:      S.cat,
+        answers:       S.answers,
+        score:         S.score,
+        pillar1:       norm(S.pScores[0]),
+        pillar2:       norm(S.pScores[1]),
+        pillar3:       norm(S.pScores[2]),
+        qualification: S.qual,
+      }),
+    });
+  } catch (_) { /* silent fail */ }
+}
+
+/* ============================================================
+   UX HELPERS
+============================================================ */
+/* WhatsApp mask */
+document.getElementById('inp-whats').addEventListener('input', e => {
+  let v = e.target.value.replace(/\D/g, '');
+  if (v.length > 0) v = '(' + v;
+  if (v.length > 3) v = v.slice(0,3) + ') ' + v.slice(3);
+  if (v.length > 10) v = v.slice(0,10) + '-' + v.slice(10,15);
+  e.target.value = v;
+});
+
+/* Enter key navigation */
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  const scr = document.querySelector('.screen.active');
+  if (!scr) return;
+  const id = scr.id;
+  if (id === 's-entry') startFlow();
+  else if (id === 's-name')  goEmail();
+  else if (id === 's-email') goWhats();
+  else if (id === 's-whats') goCat();
+});
+</script>
 </body>
 </html>
