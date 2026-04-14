@@ -1,1 +1,628 @@
-PCFET0NUWVBFIGh0bWw+CjxodG1sIGxhbmc9InB0LUJSIj4KPGhlYWQ+CiAgPG1ldGEgY2hhcnNldD0iVVRGLTgiPgogIDxtZXRhIG5hbWU9InZpZXdwb3J0IiBjb250ZW50PSJ3aWR0aD1kZXZpY2Utd2lkdGgsIGluaXRpYWwtc2NhbGU9MS4wIj4KICAKICAKICAKICAKICAKICAKICAKICAGPGRPQUWJJRFFQVZPME9FVGZnMGNOZGRJWkNaMXNWQWdFQUFBQUFJREJJQkVJSUFCK0dqaHhBQk9FZ0lCdHBRQXNVQkJCQ0RBSVhCQ0NEQUlYQkNEQ0FJUEFDc0ZBQThCQjBVQUEwVUJJREJJQkVJSUFCZ0dkaEk2TlhnME5ERTROemMzPSIsICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8dGl0bGU+RGlhZ27Ds3N0aWNvIEVzdHJhdMOpZ2ljbyB8IFN0ZWZhbnkgTWVsbG88L3RpdGxlPgogIDxsaW5rIHJlbD0icHJlY29ubmVjdCIgaHJlZj0iaHR0cHM6Ly9mb250cy5nb29nbGVhcGlzLmNvbSI+CiAgPGxpbmsgcmVsPSJwcmVjb25uZWN0IiBocmVmPSJodHRwczovL2ZvbnRzLmdzdGF0aWMuY29tIiBjcm9zc29yaWdpbj4KICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAGIC5kYXRhLXR5cGU9ImJ1dHRvbiJdIHsKICAgICAgd2lkdGg6IDEwMCU7CiAgICAgIHBhZGRpbmc6IDE2cHggMzJweDsKICAgICAgbWFyZ2luOiAyNHB4IDAgMTZweCAwOwogICAgICBiYWNrZ3JvdW5kOiB2YXIoLS1nb2xkKTsKICAgICAgY29sb3I6IHZhcigtLWJsYWNrKTsKICAgICAgYm9yZGVyOiBub25lOwogICAgICBib3JkZXItcmFkaXVzOiA4cHg7CiAgICAgIGZvbnQtZmFtaWx5OiB2YXIoLS1zYW5zKTsKICAgICAgZm9udC1zaXplOiAxNHB4OwogICAgICBmb250LXdlaWdodDogNjAwOwogICAgICBjdXJzb3I6IHBvaW50ZXI7CiAgICAgIHRyYW5zaXRpb246IGFsbCAwLjNzIGVhc2Utb3V0OwogICAgICB0ZXh0LXRyYW5zZm9ybTogdXBwZXJjYXNlOwogICAgICBsZXR0ZXItc3BhY2luZzogMC41cHg7CiAgICB9CiAgCiAgICBbZGF0YS10eXBlPSJidXR0b24iXTpob3ZlciB7CiAgICAgIGJhY2tncm91bmQ6IHZhcigtLWdvbGQtbGlnaHQpOwogICAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoLTJweCk7CiAgICAgIGJveC1zaGFkb3c6IDAgMTJweCAyNHB4IHZhcigtLWdvbGQtZGltKTsKICAgIH0KICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAKICAGIC5kYXRhLXR5cGU9ImJ1dHRvbiJdOmFjdGl2ZSB7CiAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlWSgwcHgpOwogICAgfQogICAK
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico - Stefany</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.1em;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section h2 {
+      color: #667eea;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      border-bottom: 3px solid #667eea;
+      padding-bottom: 10px;
+    }
+
+    .question-group {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      border-left: 4px solid #667eea;
+    }
+
+    .question {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 15px;
+      font-size: 1.05em;
+    }
+
+    .options {
+      margin-left: 20px;
+    }
+
+    .option {
+      padding: 10px 0;
+      color: #555;
+      display: flex;
+      align-items: center;
+    }
+
+    .option input[type="radio"],
+    .option input[type="checkbox"] {
+      margin-right: 10px;
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+    }
+
+    .option label {
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .results {
+      background: linear-gradient(135deg, #e0f7fa 0%, #e1f5fe 100%);
+      padding: 30px;
+      border-radius: 10px;
+      margin-top: 30px;
+      border-left: 4px solid #00bcd4;
+    }
+
+    .results h3 {
+      color: #00695c;
+      margin-bottom: 15px;
+      font-size: 1.3em;
+    }
+
+    .result-item {
+      padding: 15px;
+      background: white;
+      margin: 10px 0;
+      border-radius: 8px;
+      border-left: 3px solid #4caf50;
+    }
+
+    .result-item.warning {
+      border-left-color: #ff9800;
+    }
+
+    .result-item.critical {
+      border-left-color: #f44336;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: #e0e0e0;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background: #d0d0d0;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      margin: 20px 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .info-box {
+      background: #e3f2fd;
+      border-left: 4px solid #2196f3;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 20px 0;
+      color: #1565c0;
+    }
+
+    footer {
+      background: #f5f5f5;
+      padding: 20px;
+      text-align: center;
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8em;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Diagnóstico de Saúde</h1>
+      <p>Avaliação Completa - Stefany</p>
+    </header>
+
+    <div class="content">
+      <div class="info-box">
+        <strong>Importante:</strong> Este diagnóstico é apenas informativo e não substitui a consulta com um profissional de saúde qualificado.
+      </div>
+
+      <form id="diagnosticForm">
+        <div class="section">
+          <h2>1. Informações Pessoais</h2>
+          <div class="question-group">
+            <label class="question">Qual é a sua idade?</label>
+            <input type="number" name="age" min="1" max="120" placeholder="Digite sua idade" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
+          </div>
+
+          <div class="question-group">
+            <div class="question">Qual é o seu sexo?</div>
+            <div class="options">
+              <div class="option">
+                <input type="radio" name="sex" value="male" id="male">
+                <label for="male">Masculino</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="sex" value="female" id="female">
+                <label for="female">Feminino</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="sex" value="other" id="other">
+                <label for="other">Outro</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-group">
+            <label class="question">Qual é o seu peso (em kg)?</label>
+            <input type="number" name="weight" min="1" step="0.1" placeholder="Digite seu peso" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
+          </div>
+
+          <div class="question-group">
+            <label class="question">Qual é a sua altura (em cm)?</label>
+            <input type="number" name="height" min="1" step="0.1" placeholder="Digite sua altura" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>2. Histórico de Doenças</h2>
+          <div class="question-group">
+            <div class="question">Você tem alguma das seguintes condições? (Selecione todas que se aplicam)</div>
+            <div class="options">
+              <div class="option">
+                <input type="checkbox" name="conditions" value="hypertension" id="hypertension">
+                <label for="hypertension">Hipertensão</label>
+              </div>
+              <div class="option">
+                <input type="checkbox" name="conditions" value="diabetes" id="diabetes">
+                <label for="diabetes">Diabetes</label>
+              </div>
+              <div class="option">
+                <input type="checkbox" name="conditions" value="heart" id="heart">
+                <label for="heart">Doença Cardíaca</label>
+              </div>
+              <div class="option">
+                <input type="checkbox" name="conditions" value="thyroid" id="thyroid">
+                <label for="thyroid">Problema de Tireoide</label>
+              </div>
+              <div class="option">
+                <input type="checkbox" name="conditions" value="depression" id="depression">
+                <label for="depression">Depressão/Ansiedade</label>
+              </div>
+              <div class="option">
+                <input type="checkbox" name="conditions" value="none" id="none">
+                <label for="none">Nenhuma das anteriores</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>3. Hábitos de Vida</h2>
+          <div class="question-group">
+            <div class="question">Com que frequência você pratica exercícios físicos?</div>
+            <div class="options">
+              <div class="option">
+                <input type="radio" name="exercise" value="never" id="never">
+                <label for="never">Nunca</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="exercise" value="rarely" id="rarely">
+                <label for="rarely">Raramente (1-2 vezes/mês)</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="exercise" value="sometimes" id="sometimes">
+                <label for="sometimes">Às vezes (1-2 vezes/semana)</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="exercise" value="often" id="often">
+                <label for="often">Frequentemente (3+ vezes/semana)</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-group">
+            <div class="question">Como é a qualidade do seu sono?</div>
+            <div class="options">
+              <div class="option">
+                <input type="radio" name="sleep" value="poor" id="poor">
+                <label for="poor">Ruim</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="sleep" value="fair" id="fair">
+                <label for="fair">Regular</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="sleep" value="good" id="good">
+                <label for="good">Boa</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="sleep" value="excellent" id="excellent">
+                <label for="excellent">Excelente</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-group">
+            <div class="question">Você consome álcool?</div>
+            <div class="options">
+              <div class="option">
+                <input type="radio" name="alcohol" value="never" id="alcohol-never">
+                <label for="alcohol-never">Nunca</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="alcohol" value="rarely" id="alcohol-rarely">
+                <label for="alcohol-rarely">Raramente</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="alcohol" value="regularly" id="alcohol-regularly">
+                <label for="alcohol-regularly">Regularmente</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="question-group">
+            <div class="question">Você fuma?</div>
+            <div class="options">
+              <div class="option">
+                <input type="radio" name="smoking" value="no" id="smoking-no">
+                <label for="smoking-no">Não</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="smoking" value="yes" id="smoking-yes">
+                <label for="smoking-yes">Sim</label>
+              </div>
+              <div class="option">
+                <input type="radio" name="smoking" value="former" id="smoking-former">
+                <label for="smoking-former">Fumava antes</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>4. Sintomas Atuais</h2>
+          <div class="question-group">
+            <div class="question">Você está experimentando algum dos seguintes sintomas? (Selecione todos que se aplicam)</div>
+            <div class="options">
+              <div class="option">
+                <input type="checkbox" name="symptoms" value="fatigue" id="fatigue">
+                <label for="fatigue">Fadiga/Cansaço</label>
+              </div>
+              <div class="option">
+                <input type="checkbox" name="symptoms" value="pain" id="pain">
+                <label for="pain">Dor ou Desconforto</label>
+              </div>
+              <div class="option">
+                <input type="checkbox" name="symptoms" value="headache" id="headache">
+                <label for="headache">Dores de Cabeça</label>
+              </div>
+              <div class="option">
+                <input type="checkbox" name="symptoms" value="digestion" id="digestion">
+                <label for="digestion">Problemas Digestivos</label>
+              </div>
+              <div class="option">
+                <input type="checkbox" name="symptoms" value="respiratory" id="respiratory">
+                <label for="respiratory">Problemas Respiratórios</label>
+              </div>
+              <div class="option">
+                <input type="checkbox" name="symptoms" value="mood" id="mood">
+                <label for="mood">Alterações de Humor</label>
+              </div>
+              <div class="option">
+                <input type="checkbox" name="symptoms" value="none-symptoms" id="none-symptoms">
+                <label for="none-symptoms">Nenhum dos anteriores</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn-primary" onclick="generateDiagnosis()">Gerar Diagnóstico</button>
+          <button type="reset" class="btn-secondary">Limpar Formulário</button>
+        </div>
+      </form>
+
+      <div id="resultsSection" style="display: none;">
+        <div class="results">
+          <h3>Resultado da Avaliação</h3>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div id="resultsContent"></div>
+          <div class="info-box" style="background: #fff3e0; border-left-color: #ff9800; color: #e65100; margin-top: 20px;">
+            <strong>Aviso:</strong> Consulte um médico antes de tomar qualquer ação baseada neste diagnóstico.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2024 Sistema de Diagnóstico Inteligente. Todos os direitos reservados.</p>
+      <p>Este serviço é apenas para fins informativos e educacionais.</p>
+    </footer>
+  </div>
+
+  <script>
+    function generateDiagnosis() {
+      const formData = new FormData(document.getElementById('diagnosticForm'));
+      const data = Object.fromEntries(formData);
+      
+      // Validate required fields
+      if (!data.age || !data.sex || !data.weight || !data.height) {
+        alert('Por favor, preencha todas as informações pessoais.');
+        return;
+      }
+
+      if (!data.exercise || !data.sleep || !data.alcohol || !data.smoking) {
+        alert('Por favor, responda todas as questões sobre hábitos de vida.');
+        return;
+      }
+
+      let results = [];
+      let riskScore = 0;
+
+      // Calculate BMI
+      const height = parseFloat(data.height) / 100;
+      const weight = parseFloat(data.weight);
+      const bmi = (weight / (height * height)).toFixed(1);
+
+      // BMI Assessment
+      if (bmi < 18.5) {
+        results.push({
+          severity: 'warning',
+          title: 'IMC Baixo',
+          content: `Seu IMC é ${bmi} (Baixo). Considere aumentar sua ingestão calórica com alimentos saudáveis.`
+        });
+        riskScore += 2;
+      } else if (bmi >= 18.5 && bmi < 25) {
+        results.push({
+          severity: 'success',
+          title: 'IMC Normal',
+          content: `Seu IMC é ${bmi} (Normal). Mantenha seus hábitos saudáveis.`
+        });
+      } else if (bmi >= 25 && bmi < 30) {
+        results.push({
+          severity: 'warning',
+          title: 'IMC Elevado',
+          content: `Seu IMC é ${bmi} (Sobrepeso). Considere aumentar a atividade física e revisar sua alimentação.`
+        });
+        riskScore += 3;
+      } else {
+        results.push({
+          severity: 'critical',
+          title: 'IMC Muito Elevado',
+          content: `Seu IMC é ${bmi} (Obeso). Consulte um médico ou nutricionista para orientação.`
+        });
+        riskScore += 5;
+      }
+
+      // Exercise Assessment
+      if (data.exercise === 'never' || data.exercise === 'rarely') {
+        results.push({
+          severity: 'critical',
+          title: 'Atividade Física Insuficiente',
+          content: 'Você está praticando pouco exercício. Tente incluir pelo menos 150 minutos de atividade moderada por semana.'
+        });
+        riskScore += 4;
+      } else if (data.exercise === 'sometimes') {
+        results.push({
+          severity: 'warning',
+          title: 'Atividade Física Regular',
+          content: 'Você está na direção certa. Tente aumentar para 3+ vezes por semana.'
+        });
+        riskScore += 1;
+      }
+
+      // Sleep Assessment
+      if (data.sleep === 'poor' || data.sleep === 'fair') {
+        results.push({
+          severity: 'critical',
+          title: 'Qualidade do Sono Comprometida',
+          content: 'Sua qualidade de sono é baixa. Isso pode afetar sua saúde geral. Considere estabelecer uma rotina de sono regular.'
+        });
+        riskScore += 3;
+      } else if (data.sleep === 'good') {
+        results.push({
+          severity: 'warning',
+          title: 'Sono Adequado',
+          content: 'Sua qualidade de sono é boa. Continue mantendo uma boa higiene do sono.'
+        });
+      }
+
+      // Smoking Assessment
+      if (data.smoking === 'yes') {
+        results.push({
+          severity: 'critical',
+          title: 'Fumo - Risco Grave',
+          content: 'Fumar é prejudicial à sua saúde. Considere procurar ajuda profissional para parar de fumar.'
+        });
+        riskScore += 5;
+      } else if (data.smoking === 'former') {
+        results.push({
+          severity: 'warning',
+          title: 'Ex-fumante',
+          content: 'Excelente! Você parou de fumar. Continue mantendo essa decisão importante.'
+        });
+        riskScore += 1;
+      }
+
+      // Alcohol Assessment
+      if (data.alcohol === 'regularly') {
+        results.push({
+          severity: 'warning',
+          title: 'Consumo Regular de Álcool',
+          content: 'Você consome álcool regularmente. Considere reduzir a ingestão para níveis recomendados.'
+        });
+        riskScore += 2;
+      }
+
+      // Conditions Assessment
+      const conditions = Array.isArray(data.conditions) ? data.conditions : (data.conditions ? [data.conditions] : []);
+      if (conditions.length > 0 && !conditions.includes('none')) {
+        results.push({
+          severity: 'critical',
+          title: 'Condições de Saúde Pré-existentes',
+          content: `Você reportou ter condições pré-existentes. É importante monitorá-las regularmente com seu médico.`
+        });
+        riskScore += conditions.length * 2;
+      }
+
+      // Symptoms Assessment
+      const symptoms = Array.isArray(data.symptoms) ? data.symptoms : (data.symptoms ? [data.symptoms] : []);
+      if (symptoms.length > 0 && !symptoms.includes('none-symptoms')) {
+        results.push({
+          severity: 'warning',
+          title: 'Sintomas Reportados',
+          content: `Você está experimentando ${symptoms.length} sintoma(s). Se persistirem, consulte um profissional de saúde.`
+        });
+        riskScore += symptoms.length;
+      }
+
+      // Overall Risk Assessment
+      let overallRisk = '';
+      let riskColor = '';
+      if (riskScore <= 5) {
+        overallRisk = 'Baixo';
+        riskColor = 'success';
+      } else if (riskScore <= 12) {
+        overallRisk = 'Moderado';
+        riskColor = 'warning';
+      } else {
+        overallRisk = 'Elevado';
+        riskColor = 'critical';
+      }
+
+      let progressValue = (riskScore / 20) * 100;
+      if (progressValue > 100) progressValue = 100;
+
+      // Display results
+      const resultsContent = document.getElementById('resultsContent');
+      let html = `
+        <div class="result-item ${riskColor}">
+          <strong>Nível de Risco Geral: ${overallRisk}</strong>
+          <p>Pontuação de Risco: ${riskScore}/20</p>
+        </div>
+      `;
+
+      results.forEach(result => {
+        html += `
+          <div class="result-item ${result.severity === 'critical' ? 'critical' : result.severity === 'warning' ? 'warning' : ''}">
+            <strong>${result.title}</strong>
+            <p>${result.content}</p>
+          </div>
+        `;
+      });
+
+      document.getElementById('progressFill').style.width = progressValue + '%';
+      resultsContent.innerHTML = html;
+      document.getElementById('resultsSection').style.display = 'block';
+      resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  </script>
+</body>
+</html>
